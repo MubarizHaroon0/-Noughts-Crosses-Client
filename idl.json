@@ -1,0 +1,164 @@
+{
+    "version": "0.1.0",
+    "name": "tic_tac_toe",
+    "instructions": [
+        {
+            "name": "initialize",
+            "accounts": [
+                {
+                    "name": "game",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "user",
+                    "isMut": true,
+                    "isSigner": true
+                },
+                {
+                    "name": "systemProgram",
+                    "isMut": false,
+                    "isSigner": false
+                }
+            ],
+            "args": [
+                {
+                    "name": "playerX",
+                    "type": "publicKey"
+                },
+                {
+                    "name": "playerO",
+                    "type": "publicKey"
+                }
+            ]
+        },
+        {
+            "name": "play",
+            "accounts": [
+                {
+                    "name": "game",
+                    "isMut": true,
+                    "isSigner": false
+                },
+                {
+                    "name": "player",
+                    "isMut": false,
+                    "isSigner": true
+                }
+            ],
+            "args": [
+                {
+                    "name": "row",
+                    "type": "u8"
+                },
+                {
+                    "name": "col",
+                    "type": "u8"
+                }
+            ]
+        }
+    ],
+    "accounts": [
+        {
+            "name": "Game",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "playerX",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "playerO",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "turn",
+                        "type": "publicKey"
+                    },
+                    {
+                        "name": "board",
+                        "type": {
+                            "array": [
+                                {
+                                    "array": [
+                                        {
+                                            "option": {
+                                                "defined": "Cell"
+                                            }
+                                        },
+                                        3
+                                    ]
+                                },
+                                3
+                            ]
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "type": {
+                            "defined": "GameStatus"
+                        }
+                    }
+                ]
+            }
+        }
+    ],
+    "types": [
+        {
+            "name": "Cell",
+            "type": {
+                "kind": "struct",
+                "fields": [
+                    {
+                        "name": "number",
+                        "type": "i8"
+                    }
+                ]
+            }
+        },
+        {
+            "name": "GameStatus",
+            "type": {
+                "kind": "enum",
+                "variants": [
+                    {
+                        "name": "Ongoing"
+                    },
+                    {
+                        "name": "Won",
+                        "fields": [
+                            {
+                                "name": "winner",
+                                "type": "publicKey"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Draw"
+                    }
+                ]
+            }
+        }
+    ],
+    "errors": [
+        {
+            "code": 6000,
+            "name": "NotPlayersTurn",
+            "msg": "It's not the player's turn."
+        },
+        {
+            "code": 6001,
+            "name": "CellOccupied",
+            "msg": "The cell is already occupied."
+        },
+        {
+            "code": 6002,
+            "name": "GameOver",
+            "msg": "The game is already over."
+        }
+    ],
+    "metadata": {
+        "address": "J4keZe4ew164YgrqkRNZzb7AJRLZpkFPpoCGu1ZiTEht"
+    }
+}
